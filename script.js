@@ -25,7 +25,7 @@ var showWeather = function(data, city) {
     pEl3.textContent = 'Wind Speed: ' + data.current.wind_speed + 'mph';
     pEl4.textContent = 'UV index: ' + data.current.uvi;
     iconEl.alt = icon;
-    iconEl.src = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
+    iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
     iconEl.width = 100;
     iconEl.height = 100;
     currentEl.appendChild(h2El);
@@ -73,7 +73,7 @@ var showWeather = function(data, city) {
             pEl3.textContent = 'Humidity: ' + humidity + '%';
             pEl4.textContent = 'Wind Speed: ' + windSpeed + 'mph';
             iconEl.alt = icon;
-            iconEl.src = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
+            iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
             fiveDayEl.append(colEl);
             colEl.append(cardEl);
             cardEl.append(pEl);
