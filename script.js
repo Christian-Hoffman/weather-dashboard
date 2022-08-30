@@ -12,7 +12,8 @@ var showWeather = function(data, city) {
     var currentEl = document.querySelector('#current');
     var h2El = document.createElement('h2');
     var pEl = document.createElement('p');
-    h2El.textContent = city.name;
+    var todaysDate = moment().format("dddd, MMMM Do YYYY");
+    h2El.textContent = city.name + ' - ' + todaysDate;
     pEl.textContent = 'Temp: ' + data.current.temp;
     currentEl.appendChild(h2El);
     currentEl.appendChild(pEl);
