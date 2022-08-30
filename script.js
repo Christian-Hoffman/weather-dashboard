@@ -11,6 +11,7 @@ var toJSON = function(response) {
 var showWeather = function(data, city) {
     console.log(data);
     var currentEl = document.querySelector('#current');
+    currentEl.innerHTML = null;
     var h2El = document.createElement('h2');
     var pEl = document.createElement('p');
     var pEl2 = document.createElement('p');
@@ -36,6 +37,7 @@ var showWeather = function(data, city) {
     fiveDayEl.innerHTML = null;
     for (var day of fiveDay) {
         var date = new Date(day.dt * 1000).toLocaleDateString();
+        var icon = day.weather[0].icon;
         var temp = day.temp.day;
         var humidity = day.humidity;
         var windSpeed = day.wind_speed;
@@ -45,14 +47,18 @@ var showWeather = function(data, city) {
         var pEl2 = document.createElement('p');
         var pEl3 = document.createElement('p');
         var pEl4 = document.createElement('p');
+        var iconEl = document.createElement('img');
         colEl.className = 'col-12 col-md';
         cardEl.className = 'card p-3 m-3';
         pEl.textContent = date;
         pEl2.textContent = 'Temp: ' + temp;
         pEl3.textContent = 'Humidity: ' + humidity;
         pEl4.textContent = 'Wind Speed: ' + windSpeed;
+        iconEl.alt = icon;
+        iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
         fiveDayEl.append(colEl);
         colEl.append(cardEl);
+        cardEl.append(iconEl);
         cardEl.append(pEl);
         cardEl.append(pEl2);
         cardEl.append(pEl3);
@@ -69,7 +75,7 @@ var recentSearches = function() {
         searchesEl.textContent = city;
         searchesEl.className = 'btn btn-secondary mb-3';
         previousSearches.appendChild(searchesEl);
-    }
+    };
 };
 
 // uses the oneCall api tp gather weather data from given city
