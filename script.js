@@ -25,7 +25,7 @@ var showWeather = function(data, city) {
     pEl3.textContent = 'Wind Speed: ' + data.current.wind_speed + 'mph';
     pEl4.textContent = 'UV index: ' + data.current.uvi;
     iconEl.alt = icon;
-    iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
+    iconEl.src = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
     iconEl.width = 100;
     iconEl.height = 100;
     currentEl.appendChild(h2El);
@@ -73,7 +73,7 @@ var showWeather = function(data, city) {
             pEl3.textContent = 'Humidity: ' + humidity + '%';
             pEl4.textContent = 'Wind Speed: ' + windSpeed + 'mph';
             iconEl.alt = icon;
-            iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
+            iconEl.src = 'https://openweathermap.org/img/wn/' + icon + '@2x.png';
             fiveDayEl.append(colEl);
             colEl.append(cardEl);
             cardEl.append(pEl);
@@ -99,7 +99,7 @@ var showWeather = function(data, city) {
     
     // uses the oneCall api tp gather weather data from given city
     var getOneCall = function(city) {
-        var oneCall = `http://api.openweathermap.org/data/3.0/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial`;
+        var oneCall = `https://api.openweathermap.org/data/3.0/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial`;
         fetch(oneCall)
         .then(toJSON)
         .then(function(data) {
@@ -130,7 +130,7 @@ var getGEO = function(locations) {
 var citySearch = function(event) {
     event.preventDefault();
     var q = document.querySelector('#q');
-    var geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${q.value}&appid=${appid}`;
+    var geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${q.value}&appid=${appid}`;
     fetch(geoURL)
         .then(toJSON)
         .then(getGEO);
@@ -141,7 +141,7 @@ var selectRecentSearch = function(event) {
     event.preventDefault();
     if (event.target.matches('button')) {
         var q = event.target.textContent;
-        var geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
+        var geoURL = `https://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
         fetch(geoURL)
             .then(toJSON)
             .then(getGEO);

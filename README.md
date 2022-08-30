@@ -6,7 +6,7 @@
 3. [Credits](#credits)
 
 ## Description
-[Weather Dashboard](https://christian-hoffman.github.io/horiseon-refactor-project/)
+[Weather Dashboard](https://christian-hoffman.github.io/weather-dashboard/)
 <br>
 The Weather Dashboard was created in order to allow a user to input any city name and receive the current days weather\
 (temp, humidity, wind speed, uv index)\
