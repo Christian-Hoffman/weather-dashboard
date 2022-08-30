@@ -44,10 +44,10 @@ var showWeather = function(data, city) {
         pEl4.setAttribute('style', 'background: orange; width: 10%');
     }
     else if (data.current.uvi > 7 && data.current.uvi < 11) {
-        pEl4.setAttribute('style', 'background: red; width: 10%');
+        pEl4.setAttribute('style', 'background: red; width: 12%');
     }
     else {
-        pEl4.setAttribute('style', 'background: purple; color: white; width: 11%');
+        pEl4.setAttribute('style', 'background: purple; color: white; width: 12%');
     };
         
         var fiveDayEl = document.querySelector('#fiveDay');
