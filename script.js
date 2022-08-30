@@ -16,20 +16,39 @@ var showWeather = function(data, city) {
     var pEl2 = document.createElement('p');
     var pEl3 = document.createElement('p');
     var pEl4 = document.createElement('p');
+    var icon = data.current.weather[0].icon;
+    var iconEl = document.createElement('img');
     var todaysDate = moment().format("dddd, MMMM Do YYYY");
     h2El.textContent = city.name + ' - ' + todaysDate;
-    pEl.textContent = 'Temp: ' + data.current.temp;
+    pEl.textContent = 'Temp: ' + data.current.temp + '°F';
     pEl2.textContent = 'Humidity: ' + data.current.humidity + '%';
     pEl3.textContent = 'Wind Speed: ' + data.current.wind_speed + 'mph';
     pEl4.textContent = 'UV index: ' + data.current.uvi;
+    iconEl.alt = icon;
+    iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
+    iconEl.width = 100;
+    iconEl.height = 100;
     currentEl.appendChild(h2El);
+    currentEl.appendChild(iconEl);
     currentEl.appendChild(pEl);
     currentEl.appendChild(pEl2);
     currentEl.appendChild(pEl3);
     currentEl.appendChild(pEl4);
-    // if (data.current.uvi.value = 0) {
-        //     pEl4.setAttribute('style', 'background: green');
-        // };
+    if (data.current.uvi <= 2) {
+        pEl4.setAttribute('style', 'background: lightgreen; width: 10%');
+    }
+    else if (data.current.uvi > 2 && data.current.uvi < 6) {
+        pEl4.setAttribute('style', 'background: yellow; width: 10%');
+    }
+    else if (data.current.uvi > 5 && data.current.uvi < 8) {
+        pEl4.setAttribute('style', 'background: orange; width: 10%');
+    }
+    else if (data.current.uvi > 7 && data.current.uvi < 11) {
+        pEl4.setAttribute('style', 'background: red; width: 10%');
+    }
+    else {
+        pEl4.setAttribute('style', 'background: purple; color: white; width: 11%');
+    };
         
         var fiveDayEl = document.querySelector('#fiveDay');
         var fiveDay = data.daily.slice(1,6);
@@ -50,9 +69,9 @@ var showWeather = function(data, city) {
             colEl.className = 'col-12 col-md';
             cardEl.className = 'card p-3 m-3';
             pEl.textContent = date;
-            pEl2.textContent = 'Temp: ' + temp;
-            pEl3.textContent = 'Humidity: ' + humidity;
-            pEl4.textContent = 'Wind Speed: ' + windSpeed;
+            pEl2.textContent = 'Temp: ' + temp + '°F';
+            pEl3.textContent = 'Humidity: ' + humidity + '%';
+            pEl4.textContent = 'Wind Speed: ' + windSpeed + 'mph';
             iconEl.alt = icon;
             iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
             fiveDayEl.append(colEl);
