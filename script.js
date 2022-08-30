@@ -38,6 +38,14 @@ var getGEO = function(locations) {
     getOneCall(city);
 };
 
+// save cities to local storage
+var localSave = function(city) {
+    var cities = JSON.parse.localStorage.getItem('cities');
+    cities.push(city);
+    var data = JSON.stringify(cities);
+    localStorage.setItem('cities', data);
+};
+
 // function for event listener to call
 var citySearch = function(event) {
     event.preventDefault();
