@@ -27,6 +27,37 @@ var showWeather = function(data, city) {
     currentEl.appendChild(pEl2);
     currentEl.appendChild(pEl3);
     currentEl.appendChild(pEl4);
+    // if (data.current.uvi.value = 0) {
+    //     pEl4.setAttribute('style', 'background: green');
+    // };
+
+    var fiveDayEl = document.querySelector('#fiveDay');
+    var fiveDay = data.daily.slice(1,6);
+    fiveDayEl.innerHTML = null;
+    for (var day of fiveDay) {
+        var date = new Date(day.dt * 1000).toLocaleDateString();
+        var temp = day.temp.day;
+        var humidity = day.humidity;
+        var windSpeed = day.wind_speed;
+        var colEl = document.createElement('div');
+        var cardEl = document.createElement('div');
+        var pEl = document.createElement('p');
+        var pEl2 = document.createElement('p');
+        var pEl3 = document.createElement('p');
+        var pEl4 = document.createElement('p');
+        colEl.className = 'col-12 col-md';
+        cardEl.className = 'card p-3 m-3';
+        pEl.textContent = date;
+        pEl2.textContent = 'Temp: ' + temp;
+        pEl3.textContent = 'Humidity: ' + humidity;
+        pEl4.textContent = 'Wind Speed: ' + windSpeed;
+        fiveDayEl.append(colEl);
+        colEl.append(cardEl);
+        cardEl.append(pEl);
+        cardEl.append(pEl2);
+        cardEl.append(pEl3);
+        cardEl.append(pEl4);
+    }
 };
 
 // add buttons of recent searches
