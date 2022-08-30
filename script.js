@@ -13,11 +13,20 @@ var showWeather = function(data, city) {
     var currentEl = document.querySelector('#current');
     var h2El = document.createElement('h2');
     var pEl = document.createElement('p');
+    var pEl2 = document.createElement('p');
+    var pEl3 = document.createElement('p');
+    var pEl4 = document.createElement('p');
     var todaysDate = moment().format("dddd, MMMM Do YYYY");
     h2El.textContent = city.name + ' - ' + todaysDate;
     pEl.textContent = 'Temp: ' + data.current.temp;
+    pEl2.textContent = 'Humidity: ' + data.current.humidity + '%';
+    pEl3.textContent = 'Wind Speed: ' + data.current.wind_speed + 'mph';
+    pEl4.textContent = 'UV index: ' + data.current.uvi;
     currentEl.appendChild(h2El);
     currentEl.appendChild(pEl);
+    currentEl.appendChild(pEl2);
+    currentEl.appendChild(pEl3);
+    currentEl.appendChild(pEl4);
 };
 
 // add buttons of recent searches
