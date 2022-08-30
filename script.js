@@ -1,5 +1,4 @@
 var appid = '692efab00ae66e9f48137e6ea4766fcd';
-var previousSearches = document.querySelector('#previousSearches');
 var search = document.querySelector('#search');
 var buttonEl = document.querySelector('#button');
 
@@ -29,62 +28,63 @@ var showWeather = function(data, city) {
     currentEl.appendChild(pEl3);
     currentEl.appendChild(pEl4);
     // if (data.current.uvi.value = 0) {
-    //     pEl4.setAttribute('style', 'background: green');
-    // };
-
-    var fiveDayEl = document.querySelector('#fiveDay');
-    var fiveDay = data.daily.slice(1,6);
-    fiveDayEl.innerHTML = null;
-    for (var day of fiveDay) {
-        var date = new Date(day.dt * 1000).toLocaleDateString();
-        var icon = day.weather[0].icon;
-        var temp = day.temp.day;
-        var humidity = day.humidity;
-        var windSpeed = day.wind_speed;
-        var colEl = document.createElement('div');
-        var cardEl = document.createElement('div');
-        var pEl = document.createElement('p');
-        var pEl2 = document.createElement('p');
-        var pEl3 = document.createElement('p');
-        var pEl4 = document.createElement('p');
-        var iconEl = document.createElement('img');
-        colEl.className = 'col-12 col-md';
-        cardEl.className = 'card p-3 m-3';
-        pEl.textContent = date;
-        pEl2.textContent = 'Temp: ' + temp;
-        pEl3.textContent = 'Humidity: ' + humidity;
-        pEl4.textContent = 'Wind Speed: ' + windSpeed;
-        iconEl.alt = icon;
-        iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
-        fiveDayEl.append(colEl);
-        colEl.append(cardEl);
-        cardEl.append(iconEl);
-        cardEl.append(pEl);
-        cardEl.append(pEl2);
-        cardEl.append(pEl3);
-        cardEl.append(pEl4);
-    }
-};
-
-// add buttons of recent searches
-var recentSearches = function() {
-    var cities = JSON.parse(localStorage.getItem('cities')) || [];
-    previousSearches.innerHTML = null;
-    for (var city of cities) {
-        var searchesEl = document.createElement('button');
-        searchesEl.textContent = city;
-        searchesEl.className = 'btn btn-secondary mb-3';
-        previousSearches.appendChild(searchesEl);
+        //     pEl4.setAttribute('style', 'background: green');
+        // };
+        
+        var fiveDayEl = document.querySelector('#fiveDay');
+        var fiveDay = data.daily.slice(1,6);
+        fiveDayEl.innerHTML = null;
+        for (var day of fiveDay) {
+            var date = new Date(day.dt * 1000).toLocaleDateString();
+            var icon = day.weather[0].icon;
+            var temp = day.temp.day;
+            var humidity = day.humidity;
+            var windSpeed = day.wind_speed;
+            var colEl = document.createElement('div');
+            var cardEl = document.createElement('div');
+            var pEl = document.createElement('p');
+            var pEl2 = document.createElement('p');
+            var pEl3 = document.createElement('p');
+            var pEl4 = document.createElement('p');
+            var iconEl = document.createElement('img');
+            colEl.className = 'col-12 col-md';
+            cardEl.className = 'card p-3 m-3';
+            pEl.textContent = date;
+            pEl2.textContent = 'Temp: ' + temp;
+            pEl3.textContent = 'Humidity: ' + humidity;
+            pEl4.textContent = 'Wind Speed: ' + windSpeed;
+            iconEl.alt = icon;
+            iconEl.src = 'http://openweathermap.org/img/wn/' + icon + '@2x.png';
+            fiveDayEl.append(colEl);
+            colEl.append(cardEl);
+            cardEl.append(pEl);
+            cardEl.append(iconEl);
+            cardEl.append(pEl2);
+            cardEl.append(pEl3);
+            cardEl.append(pEl4);
+        };
     };
-};
-
-// uses the oneCall api tp gather weather data from given city
-var getOneCall = function(city) {
-    var oneCall = `http://api.openweathermap.org/data/3.0/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial`;
-    fetch(oneCall)
-    .then(toJSON)
-    .then(function(data) {
-        showWeather(data, city);
+    
+    // add buttons of recent searches
+    var previousSearches = document.querySelector('#previousSearches');
+    var recentSearches = function() {
+        var cities = JSON.parse(localStorage.getItem('cities')) || [];
+        previousSearches.innerHTML = null;
+        for (var city of cities) {
+            var searchesEl = document.createElement('button');
+            searchesEl.textContent = city;
+            searchesEl.className = 'btn btn-secondary m-2';
+            previousSearches.appendChild(searchesEl);
+        };
+    };
+    
+    // uses the oneCall api tp gather weather data from given city
+    var getOneCall = function(city) {
+        var oneCall = `http://api.openweathermap.org/data/3.0/onecall?lat=${city.lat}&lon=${city.lon}&appid=${appid}&units=imperial`;
+        fetch(oneCall)
+        .then(toJSON)
+        .then(function(data) {
+            showWeather(data, city);
     });
 };
 
@@ -92,7 +92,8 @@ var getOneCall = function(city) {
 var localSave = function(city) {
     var cities = JSON.parse(localStorage.getItem('cities')) || [];
     cities.push(city);
-    var data = JSON.stringify(cities);
+    var noRepeats = Array.from(new Set(cities));
+    var data = JSON.stringify(noRepeats);
     localStorage.setItem('cities', data);
     recentSearches();
 };
