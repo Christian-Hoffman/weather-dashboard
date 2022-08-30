@@ -1,4 +1,5 @@
 var appid = '692efab00ae66e9f48137e6ea4766fcd';
+var previousSearches = document.querySelector('#previousSearches');
 var search = document.querySelector('#search');
 var buttonEl = document.querySelector('#button');
 
@@ -22,11 +23,12 @@ var showWeather = function(data, city) {
 // add buttons of recent searches
 var recentSearches = function() {
     var cities = JSON.parse(localStorage.getItem('cities')) || [];
+    previousSearches.innerHTML = null;
     for (var city of cities) {
         var searchesEl = document.createElement('button');
         searchesEl.textContent = city;
         searchesEl.className = 'btn btn-secondary mb-3';
-        search.appendChild(searchesEl);
+        previousSearches.appendChild(searchesEl);
     }
 };
 
@@ -46,6 +48,7 @@ var localSave = function(city) {
     cities.push(city);
     var data = JSON.stringify(cities);
     localStorage.setItem('cities', data);
+    recentSearches();
 };
 
 // console logs lat and lon. Calls oneCall function
@@ -66,7 +69,18 @@ var citySearch = function(event) {
         .then(toJSON)
         .then(getGEO);
 };
+
+// allows recent search buttons to display correct info
+var selectRecentSearch = function(event) {
+    event.preventDefault();
+    if (event.target.matches('button')) {
+        var q = event.target.textContent;
+        var geoURL = `http://api.openweathermap.org/geo/1.0/direct?q=${q}&appid=${appid}`;
+        fetch(geoURL)
+            .then(toJSON)
+            .then(getGEO);
+    }
+}
     
 buttonEl.addEventListener('click', citySearch);
-    
-recentSearches();
+previousSearches.addEventListener('click', selectRecentSearch);
